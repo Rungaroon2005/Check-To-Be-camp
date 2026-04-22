@@ -22,20 +22,22 @@ exports.AppModule = AppModule = __decorate([
             typeorm_1.TypeOrmModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],
-                useFactory: (config) => ({
-                    type: 'postgres',
-                    url: config.get('DATABASE_URL'),
-                    host: config.get('DB_HOST', '127.0.0.1'),
-                    port: config.get('DB_PORT', 5432),
-                    username: config.get('DB_USER', 'postgres'),
-                    password: config.get('DB_PASS'),
-                    database: config.get('DB_NAME', 'tobeone_phuket'),
-                    entities: [participant_entity_1.Participant],
-                    ssl: config.get('NODE_ENV') === 'production'
-                        ? { rejectUnauthorized: false }
-                        : false,
-                    synchronize: config.get('NODE_ENV') !== 'production',
-                }),
+                useFactory: (config) => {
+                    const url = config.get('DATABASE_URL');
+                    const isProd = config.get('NODE_ENV') === 'production';
+                    return {
+                        type: 'postgres',
+                        url: url,
+                        host: !url ? '127.0.0.1' : undefined,
+                        port: !url ? 5432 : undefined,
+                        username: !url ? 'postgres' : undefined,
+                        password: !url ? config.get('DB_PASS') : undefined,
+                        database: !url ? 'tobeone_phuket' : undefined,
+                        entities: [participant_entity_1.Participant],
+                        ssl: isProd ? { rejectUnauthorized: false } : false,
+                        synchronize: !isProd,
+                    };
+                },
             }),
             participants_module_1.ParticipantsModule,
         ],

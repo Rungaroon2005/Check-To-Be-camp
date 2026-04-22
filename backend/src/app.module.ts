@@ -11,28 +11,31 @@ import { Participant } from './participants/participant.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        
-        // ใช้ DATABASE_URL ตัวเดียวจะจัดการง่ายกว่ามากทั้งบนเครื่องเราและ Render
-        url: config.get('DATABASE_URL'),
-        
-        // ถ้าไม่มี URL (กรณีฉุกเฉิน) ค่อยใช้ค่าสำรอง
-        host: config.get('DB_HOST', '127.0.0.1'),
-        port: config.get<number>('DB_PORT', 5432),
-        username: config.get('DB_USER', 'postgres'),
-        password: config.get('DB_PASS'),
-        database: config.get('DB_NAME', 'tobeone_phuket'),
+      useFactory: (config: ConfigService) => {
+        const url = config.get<string>('DATABASE_URL');
+        const isProd = config.get('NODE_ENV') === 'production';
 
-        entities: [Participant],
-        
-        // บน Render มักจะต้องการ SSL สำหรับ Database
-        ssl: config.get('NODE_ENV') === 'production' 
-          ? { rejectUnauthorized: false } 
-          : false,
+        return {
+          type: 'postgres',
+          // ถ้ามี URL ให้ใช้ URL เป็นหลัก (ซึ่ง Render จะมีตัวนี้)
+          url: url,
+          
+          // ถ้าไม่มี URL จริงๆ (เช่น รันในเครื่อง M4) ถึงจะใช้ค่าพวกนี้
+          host: !url ? '127.0.0.1' : undefined,
+          port: !url ? 5432 : undefined,
+          username: !url ? 'postgres' : undefined,
+          password: !url ? config.get('DB_PASS') : undefined,
+          database: !url ? 'tobeone_phuket' : undefined,
 
-        synchronize: config.get('NODE_ENV') !== 'production', // สร้างตารางอัตโนมัติเฉพาะตอน dev
-      }),
+          entities: [Participant],
+          
+          // จุดตาย: ฐานข้อมูลบน Cloud ส่วนใหญ่ "บังคับ" ให้ใช้ SSL ครับ
+          ssl: isProd ? { rejectUnauthorized: false } : false,
+          
+          // คุมเข้มเรื่อง synchronization
+          synchronize: !isProd, 
+        };
+      },
     }),
 
     ParticipantsModule,
