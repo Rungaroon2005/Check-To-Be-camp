@@ -24,12 +24,16 @@ exports.AppModule = AppModule = __decorate([
                 inject: [config_1.ConfigService],
                 useFactory: (config) => ({
                     type: 'postgres',
-                    host: '127.0.0.1',
-                    port: 5432,
-                    username: 'postgres',
+                    url: config.get('DATABASE_URL'),
+                    host: config.get('DB_HOST', '127.0.0.1'),
+                    port: config.get('DB_PORT', 5432),
+                    username: config.get('DB_USER', 'postgres'),
                     password: config.get('DB_PASS'),
-                    database: 'tobeone_phuket',
+                    database: config.get('DB_NAME', 'tobeone_phuket'),
                     entities: [participant_entity_1.Participant],
+                    ssl: config.get('NODE_ENV') === 'production'
+                        ? { rejectUnauthorized: false }
+                        : false,
                     synchronize: config.get('NODE_ENV') !== 'production',
                 }),
             }),
