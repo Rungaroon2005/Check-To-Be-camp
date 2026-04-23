@@ -27,12 +27,12 @@ exports.AppModule = AppModule = __decorate([
                     const isProd = config.get('NODE_ENV') === 'production';
                     return {
                         type: 'postgres',
-                        url: url,
-                        host: !url ? '127.0.0.1' : undefined,
-                        port: !url ? 5432 : undefined,
-                        username: !url ? 'postgres' : undefined,
+                        url,
+                        host: !url ? config.get('DB_HOST', '127.0.0.1') : undefined,
+                        port: !url ? Number(config.get('DB_PORT', '5432')) : undefined,
+                        username: !url ? config.get('DB_USER', 'postgres') : undefined,
                         password: !url ? config.get('DB_PASS') : undefined,
-                        database: !url ? 'tobeone_phuket' : undefined,
+                        database: !url ? config.get('DB_NAME', 'tobeone_phuket') : undefined,
                         entities: [participant_entity_1.Participant],
                         ssl: isProd ? { rejectUnauthorized: false } : false,
                         synchronize: !isProd,

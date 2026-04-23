@@ -17,15 +17,15 @@ import { Participant } from './participants/participant.entity';
 
         return {
           type: 'postgres',
-          // ถ้ามี URL ให้ใช้ URL เป็นหลัก (ซึ่ง Render จะมีตัวนี้)
-          url: url,
-          
-          // ถ้าไม่มี URL จริงๆ (เช่น รันในเครื่อง M4) ถึงจะใช้ค่าพวกนี้
-          host: !url ? '127.0.0.1' : undefined,
-          port: !url ? 5432 : undefined,
-          username: !url ? 'postgres' : undefined,
-          password: !url ? config.get('DB_PASS') : undefined,
-          database: !url ? 'tobeone_phuket' : undefined,
+          // ใช้ DATABASE_URL บน Render/production เป็นหลัก
+          url,
+
+          // ถ้าไม่มี DATABASE_URL ให้ fallback ไปใช้ค่า DB_* สำหรับ local/docker-compose
+          host: !url ? config.get<string>('DB_HOST', '127.0.0.1') : undefined,
+          port: !url ? Number(config.get<string>('DB_PORT', '5432')) : undefined,
+          username: !url ? config.get<string>('DB_USER', 'postgres') : undefined,
+          password: !url ? config.get<string>('DB_PASS') : undefined,
+          database: !url ? config.get<string>('DB_NAME', 'tobeone_phuket') : undefined,
 
           entities: [Participant],
           
