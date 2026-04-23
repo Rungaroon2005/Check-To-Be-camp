@@ -91,6 +91,8 @@ npm run dev
   "status": "confirmed",  // "confirmed" | "reserve" | "not_registered"
   "firstName": "สมชาย",
   "lastName": "ใจดี",
+  "role": "ฝ่ายลงทะเบียน",
+  "personImageUrl": null,
   "qrCodeUrl": null
 }
 ```
@@ -100,12 +102,12 @@ npm run dev
 **วิธีที่ 1: SQL โดยตรง**
 ```sql
 -- ตัวจริง
-INSERT INTO participants (first_name, last_name, status)
-VALUES ('สมชาย', 'ใจดี', 'confirmed');
+INSERT INTO participants (first_name, last_name, status, role, person_image_url)
+VALUES ('สมชาย', 'ใจดี', 'confirmed', 'ฝ่ายลงทะเบียน', 'https://example.com/person.jpg');
 
 -- ตัวสำรอง
-INSERT INTO participants (first_name, last_name, status)
-VALUES ('สมหญิง', 'รักดี', 'reserve');
+INSERT INTO participants (first_name, last_name, status, role, person_image_url)
+VALUES ('สมหญิง', 'รักดี', 'reserve', 'ฝ่ายสันทนาการ', NULL);
 ```
 
 **วิธีที่ 2: Seed API (Development)**

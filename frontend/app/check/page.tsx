@@ -37,6 +37,8 @@ export default function CheckPage() {
       firstName: result.firstName,
       lastName: result.lastName,
       status: result.status,
+      ...(result.role ? { role: result.role } : {}),
+      ...(result.personImageUrl ? { personImageUrl: result.personImageUrl } : {}),
       ...(result.qrCodeUrl ? { qr: result.qrCodeUrl } : {}),
     });
     router.push(`/result?${params.toString()}`);

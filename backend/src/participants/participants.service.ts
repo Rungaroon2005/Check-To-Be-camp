@@ -7,6 +7,8 @@ export type CheckResult = {
   status: 'confirmed' | 'reserve' | 'not_registered';
   firstName: string;
   lastName: string;
+  role?: string | null;
+  personImageUrl?: string | null;
   qrCodeUrl?: string | null;
   note?: string | null;
 };
@@ -35,6 +37,8 @@ export class ParticipantsService {
       status: participant.status as 'confirmed' | 'reserve',
       firstName: participant.firstName,
       lastName: participant.lastName,
+      role: participant.role,
+      personImageUrl: participant.personImageUrl,
       qrCodeUrl: participant.qrCodeUrl,
       note: participant.note,
     };
@@ -46,8 +50,18 @@ export class ParticipantsService {
     if (count > 0) return { message: 'Already seeded' };
 
     const samples = [
-      { firstName: 'สมชาย', lastName: 'ใจดี', status: ParticipantStatus.CONFIRMED },
-      { firstName: 'สมหญิง', lastName: 'รักดี', status: ParticipantStatus.RESERVE },
+      {
+        firstName: 'สมชาย',
+        lastName: 'ใจดี',
+        status: ParticipantStatus.CONFIRMED,
+        role: 'ฝ่ายลงทะเบียน',
+      },
+      {
+        firstName: 'สมหญิง',
+        lastName: 'รักดี',
+        status: ParticipantStatus.RESERVE,
+        role: 'ฝ่ายสันทนาการ',
+      },
     ];
 
     for (const s of samples) {

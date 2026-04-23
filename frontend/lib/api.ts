@@ -5,6 +5,8 @@ export type CheckResult = {
   status: "confirmed" | "reserve" | "not_registered";
   firstName: string;
   lastName: string;
+  role?: string | null;
+  personImageUrl?: string | null;
   qrCodeUrl?: string | null;
   note?: string | null;
 };

@@ -30,6 +30,12 @@ export class Participant {
   })
   status: ParticipantStatus;
 
+  @Column({ name: 'role', nullable: true })
+  role: string | null;
+
+  @Column({ name: 'person_image_url', nullable: true, type: 'text' })
+  personImageUrl: string | null;
+
   @Column({ name: 'qr_code_url', nullable: true, type: 'text' })
   qrCodeUrl: string | null;
 
@@ -40,8 +46,8 @@ export class Participant {
   createdAt: Date;
 
   @Column({ name: 'thai_first_name', nullable: true })
-thaiFirstName: string;
+  thaiFirstName: string;
 
-@Column({ name: 'thai_last_name', nullable: true })
-thaiLastName: string;
+  @Column({ name: 'thai_last_name', nullable: true })
+  thaiLastName: string;
 }

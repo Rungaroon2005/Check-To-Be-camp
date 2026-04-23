@@ -29,6 +29,8 @@ function ResultContent() {
           status: statusParam || "not_registered",
           firstName,
           lastName,
+          role: searchParams.get("role"),
+          personImageUrl: searchParams.get("personImageUrl"),
           qrCodeUrl: searchParams.get("qr") || null,
         });
       })
@@ -111,11 +113,32 @@ function ConfirmedView({ result, onBack, mounted }: { result: CheckResult; onBac
           <span className="text-white font-semibold">{result.firstName} {result.lastName}</span>
         </p>
         <p className="text-white/50 text-sm mb-8">
-          ได้รับเลือกเป็น <span className="text-emerald-400 font-semibold">พี่ค่ายตัวจริง</span> · TO BE NUMBER ONE PHUKET
+          ได้รับเลือกเป็น <span className="text-emerald-400 font-semibold">พี่ค่ายตัวจริง</span>
+          {result.role ? (
+            <>
+              {" "}ตำแหน่ง <span className="text-gold font-semibold">{result.role}</span>
+            </>
+          ) : null}
+          {" "}· TO BE NUMBER ONE PHUKET
         </p>
 
         {/* QR + Decoration card */}
         <div className="glass-card rounded-3xl p-6 mb-6 border border-emerald-500/20">
+          {result.personImageUrl ? (
+            <>
+              <p className="text-white/50 text-xs mb-4 tracking-wider uppercase">รูปประจำตัว</p>
+              <div className="flex justify-center mb-6">
+                <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-2">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={result.personImageUrl}
+                    alt={`${result.firstName} ${result.lastName}`}
+                    className="w-44 h-56 object-cover rounded-xl"
+                  />
+                </div>
+              </div>
+            </>
+          ) : null}
           <p className="text-white/50 text-xs mb-4 tracking-wider uppercase">QR Code ยืนยันตัวตน</p>
           <div className="flex justify-center mb-4">
             <div className="p-3 bg-white rounded-2xl gold-glow">
@@ -168,6 +191,9 @@ function ReserveView({ result, onBack, mounted }: { result: CheckResult; onBack:
         <p className="text-white/60 mb-8 text-base">
           <span className="text-white font-semibold">{result.firstName} {result.lastName}</span>
         </p>
+        {result.role ? (
+          <p className="text-amber-300/90 text-sm font-medium mb-8">ตำแหน่ง {result.role}</p>
+        ) : null}
 
         {/* Info card */}
         <div className="glass-card rounded-3xl p-7 mb-6 border border-amber-500/30">
@@ -227,6 +253,9 @@ function NotRegisteredView({ result, onBack, mounted }: { result: CheckResult; o
         <p className="text-white/60 mb-8 text-base">
           <span className="text-white font-semibold">{result.firstName} {result.lastName}</span>
         </p>
+        {result.role ? (
+          <p className="text-white/50 text-sm mb-8">ตำแหน่ง {result.role}</p>
+        ) : null}
 
         {/* Info card */}
         <div className="glass-card rounded-3xl p-7 mb-6 border border-red-500/30">
