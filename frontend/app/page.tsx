@@ -106,7 +106,7 @@ export default function LandingPage() {
         >
           <div className="relative w-52 h-52 sm:w-64 sm:h-64">
             <Image
-              src="/PATH_TO_HELLO_IMAGE.png"
+              src="/ทิวสวัสดี.png"
               alt="Tiew Hello"
               fill
               className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)]"
