@@ -81,14 +81,23 @@ export default function CheckPage() {
         confirmed: {
           src: "/tiew-congratulate.png",
           alt: "Tiew Congratulate",
+          width: 176,
+          height: 176,
+          className: "w-40 sm:w-44",
         },
         reserve: {
           src: "/tiew-sad.png",
           alt: "Tiew Sad",
+          width: 148,
+          height: 148,
+          className: "w-32 sm:w-36",
         },
         not_registered: {
           src: "/tiew-angry.png",
           alt: "Tiew Angry",
+          width: 176,
+          height: 176,
+          className: "w-40 sm:w-44",
         },
       }[result.status]
     : null;
@@ -229,12 +238,13 @@ export default function CheckPage() {
 
             {statusAsset ? (
               <div className="flex justify-center mb-6">
-                <div className="relative w-40 h-40 sm:w-44 sm:h-44">
+                <div className={`${statusAsset.className} flex justify-center`}>
                   <Image
                     src={statusAsset.src}
                     alt={statusAsset.alt}
-                    fill
-                    className="object-contain"
+                    width={statusAsset.width}
+                    height={statusAsset.height}
+                    className="h-auto object-contain"
                   />
                 </div>
               </div>
