@@ -12,7 +12,8 @@ export type CheckResult = {
 };
 
 // ดึง URL หลังบ้านจาก Environment Variable ของ Vercel
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+const RAW_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+const BASE_URL = RAW_BASE_URL.replace(/\/+$/, "").replace(/\/api$/, "");
 
 export async function checkParticipant(
   firstName: string,
@@ -28,11 +29,11 @@ export async function checkParticipant(
   });
 
   if (!res.ok) {
-    if (res.status === 404) {
-      return { status: "not_registered", firstName, lastName };
-    }
     const err = await res.json().catch(() => ({}));
-    throw new Error(err?.message || "เกิดข้อผิดพลาดในการตรวจสอบข้อมูล");
+    throw new Error(
+      err?.message ||
+        `เกิดข้อผิดพลาดในการตรวจสอบข้อมูล (${res.status}) ที่ ${endpoint}`
+    );
   }
 
   return res.json();

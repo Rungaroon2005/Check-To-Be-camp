@@ -21,22 +21,31 @@ export class ParticipantsService {
   ) {}
 
   async check(firstName: string, lastName: string): Promise<CheckResult> {
+    const normalizedFirstName = firstName.trim();
+    const normalizedLastName = lastName.trim();
+
     const participant = await this.repo.findOne({
-      where: { firstName: firstName.trim(), lastName: lastName.trim() },
+      where: [
+        { firstName: normalizedFirstName, lastName: normalizedLastName },
+        {
+          thaiFirstName: normalizedFirstName,
+          thaiLastName: normalizedLastName,
+        },
+      ],
     });
 
     if (!participant) {
       return {
         status: 'not_registered',
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
+        firstName: normalizedFirstName,
+        lastName: normalizedLastName,
       };
     }
 
     return {
       status: participant.status as 'confirmed' | 'reserve',
-      firstName: participant.firstName,
-      lastName: participant.lastName,
+      firstName: participant.thaiFirstName || participant.firstName,
+      lastName: participant.thaiLastName || participant.lastName,
       role: participant.role,
       personImageUrl: participant.personImageUrl,
       qrCodeUrl: participant.qrCodeUrl,
@@ -53,12 +62,16 @@ export class ParticipantsService {
       {
         firstName: 'สมชาย',
         lastName: 'ใจดี',
+        thaiFirstName: 'สมชาย',
+        thaiLastName: 'ใจดี',
         status: ParticipantStatus.CONFIRMED,
         role: 'ฝ่ายลงทะเบียน',
       },
       {
         firstName: 'สมหญิง',
         lastName: 'รักดี',
+        thaiFirstName: 'สมหญิง',
+        thaiLastName: 'รักดี',
         status: ParticipantStatus.RESERVE,
         role: 'ฝ่ายสันทนาการ',
       },
