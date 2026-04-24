@@ -160,7 +160,7 @@ function ConfirmedView({ result, onBack, mounted }: { result: CheckResult; onBac
               />
             </div>
           </div>
-          <p className="text-white/40 text-xs">กรุณาแสดง QR Code นี้ในวันรับสมัคร</p>
+          <p className="text-white/40 text-xs">กรุณาแจ้งชื่อและตำแหน่งของท่านกับเจ้าหน้าที่ทาง LINE</p>
         </div>
 
     
