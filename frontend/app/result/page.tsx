@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, Suspense } from "react";
 import { checkParticipant, CheckResult } from "../../lib/api";
@@ -70,6 +71,7 @@ function ResultView({ result, onBack }: { result: CheckResult; onBack: () => voi
 // ---- CASE 1: CONFIRMED ----
 function ConfirmedView({ result, onBack, mounted }: { result: CheckResult; onBack: () => void; mounted: boolean }) {
   const qrUrl = "/QR-Higuy.png";
+  const characterUrl = "/tiew-congratulate.png";
 
   return (
     <main className="relative min-h-screen bg-navy overflow-hidden px-4 py-12 flex flex-col items-center justify-center">
@@ -120,6 +122,18 @@ function ConfirmedView({ result, onBack, mounted }: { result: CheckResult; onBac
 
         {/* QR + Decoration card */}
         <div className="glass-card rounded-3xl p-6 mb-6 border border-emerald-500/20">
+          <p className="text-white/50 text-xs mb-4 tracking-wider uppercase">Mascot ประจำสถานะ</p>
+          <div className="flex justify-center mb-6">
+            <div className="relative w-40 h-40 sm:w-44 sm:h-44">
+              <Image
+                src={characterUrl}
+                alt="Tiew Congratulate"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+          </div>
           {result.personImageUrl ? (
             <>
               <p className="text-white/50 text-xs mb-4 tracking-wider uppercase">รูปประจำตัว</p>
@@ -167,6 +181,8 @@ function ConfirmedView({ result, onBack, mounted }: { result: CheckResult; onBac
 
 // ---- CASE 2: RESERVE ----
 function ReserveView({ result, onBack, mounted }: { result: CheckResult; onBack: () => void; mounted: boolean }) {
+  const characterUrl = "/tiew-sad.png";
+
   return (
     <main className="relative min-h-screen bg-navy overflow-hidden px-4 py-12 flex flex-col items-center justify-center">
       <div className="absolute inset-0 pointer-events-none"
@@ -193,6 +209,16 @@ function ReserveView({ result, onBack, mounted }: { result: CheckResult; onBack:
 
         {/* Info card */}
         <div className="glass-card rounded-3xl p-7 mb-6 border border-amber-500/30">
+          <div className="flex justify-center mb-6">
+            <div className="relative w-40 h-40 sm:w-44 sm:h-44">
+              <Image
+                src={characterUrl}
+                alt="Tiew Sad"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
           <div className="w-14 h-14 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center mx-auto mb-4">
             <svg className="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z" />
@@ -230,6 +256,8 @@ function ReserveView({ result, onBack, mounted }: { result: CheckResult; onBack:
 
 // ---- CASE 3: NOT REGISTERED ----
 function NotRegisteredView({ result, onBack, mounted }: { result: CheckResult; onBack: () => void; mounted: boolean }) {
+  const characterUrl = "/tiew-angry.png";
+
   return (
     <main className="relative min-h-screen bg-navy overflow-hidden px-4 py-12 flex flex-col items-center justify-center">
       <div className="absolute inset-0 pointer-events-none"
@@ -255,6 +283,16 @@ function NotRegisteredView({ result, onBack, mounted }: { result: CheckResult; o
 
         {/* Info card */}
         <div className="glass-card rounded-3xl p-7 mb-6 border border-red-500/30">
+          <div className="flex justify-center mb-6">
+            <div className="relative w-40 h-40 sm:w-44 sm:h-44">
+              <Image
+                src={characterUrl}
+                alt="Tiew Angry"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
           <div className="w-14 h-14 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center mx-auto mb-4">
             <svg className="w-7 h-7 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
