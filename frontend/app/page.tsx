@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -96,6 +97,22 @@ export default function LandingPage() {
           <h2 className="text-xl sm:text-2xl md:text-3xl font-medium text-white/70 mb-1">
             รายชื่อพี่ค่าย
           </h2>
+        </div>
+
+        <div
+          className={`flex justify-center mb-8 transition-all duration-700 delay-200 ${
+            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          <div className="relative w-52 h-52 sm:w-64 sm:h-64">
+            <Image
+              src="/PATH_TO_HELLO_IMAGE.png"
+              alt="Tiew Hello"
+              fill
+              className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)]"
+              priority
+            />
+          </div>
         </div>
 
         {/* Program name */}

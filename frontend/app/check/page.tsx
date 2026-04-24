@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { checkParticipant, CheckResult } from "../../lib/api";
@@ -75,6 +76,22 @@ export default function CheckPage() {
   };
 
   const meta = result ? statusMeta[result.status] : null;
+  const statusAsset = result
+    ? {
+        confirmed: {
+          src: "/PATH_TO_CONGRATULATE_IMAGE.png",
+          alt: "Tiew Congratulate",
+        },
+        reserve: {
+          src: "/PATH_TO_SAD_IMAGE.png",
+          alt: "Tiew Sad",
+        },
+        not_registered: {
+          src: "/PATH_TO_ANGRY_IMAGE.png",
+          alt: "Tiew Angry",
+        },
+      }[result.status]
+    : null;
 
   return (
     <main className="relative min-h-screen bg-navy flex flex-col items-center justify-center px-4 py-12 overflow-hidden">
@@ -209,6 +226,19 @@ export default function CheckPage() {
                 {meta.sublabel}
               </span>
             </div>
+
+            {statusAsset ? (
+              <div className="flex justify-center mb-6">
+                <div className="relative w-40 h-40 sm:w-44 sm:h-44">
+                  <Image
+                    src={statusAsset.src}
+                    alt={statusAsset.alt}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            ) : null}
 
             {/* View result button */}
             <button
