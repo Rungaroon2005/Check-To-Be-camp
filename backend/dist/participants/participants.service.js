@@ -36,6 +36,8 @@ let ParticipantsService = class ParticipantsService {
             status: participant.status,
             firstName: participant.firstName,
             lastName: participant.lastName,
+            role: participant.role,
+            personImageUrl: participant.personImageUrl,
             qrCodeUrl: participant.qrCodeUrl,
             note: participant.note,
         };
@@ -45,8 +47,18 @@ let ParticipantsService = class ParticipantsService {
         if (count > 0)
             return { message: 'Already seeded' };
         const samples = [
-            { firstName: 'สมชาย', lastName: 'ใจดี', status: participant_entity_1.ParticipantStatus.CONFIRMED },
-            { firstName: 'สมหญิง', lastName: 'รักดี', status: participant_entity_1.ParticipantStatus.RESERVE },
+            {
+                firstName: 'สมชาย',
+                lastName: 'ใจดี',
+                status: participant_entity_1.ParticipantStatus.CONFIRMED,
+                role: 'ฝ่ายลงทะเบียน',
+            },
+            {
+                firstName: 'สมหญิง',
+                lastName: 'รักดี',
+                status: participant_entity_1.ParticipantStatus.RESERVE,
+                role: 'ฝ่ายสันทนาการ',
+            },
         ];
         for (const s of samples) {
             const p = this.repo.create(s);

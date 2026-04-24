@@ -40,6 +40,14 @@ __decorate([
     __metadata("design:type", String)
 ], Participant.prototype, "status", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ name: 'role', nullable: true }),
+    __metadata("design:type", String)
+], Participant.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'person_image_url', nullable: true, type: 'text' }),
+    __metadata("design:type", String)
+], Participant.prototype, "personImageUrl", void 0);
+__decorate([
     (0, typeorm_1.Column)({ name: 'qr_code_url', nullable: true, type: 'text' }),
     __metadata("design:type", String)
 ], Participant.prototype, "qrCodeUrl", void 0);

@@ -7,6 +7,8 @@ export declare class Participant {
     firstName: string;
     lastName: string;
     status: ParticipantStatus;
+    role: string | null;
+    personImageUrl: string | null;
     qrCodeUrl: string | null;
     note: string | null;
     createdAt: Date;
