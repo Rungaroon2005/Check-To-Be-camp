@@ -79,15 +79,15 @@ export default function CheckPage() {
   const statusAsset = result
     ? {
         confirmed: {
-          src: "/ทิวยินดี.png",
+          src: "/tiew-congratulate.png",
           alt: "Tiew Congratulate",
         },
         reserve: {
-          src: "/ทิวเสียใจ.png",
+          src: "/tiew-sad.png",
           alt: "Tiew Sad",
         },
         not_registered: {
-          src: "/ทิวไม่พอใจ.png",
+          src: "/tiew-angry.png",
           alt: "Tiew Angry",
         },
       }[result.status]
