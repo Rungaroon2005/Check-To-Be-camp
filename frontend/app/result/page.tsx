@@ -69,7 +69,7 @@ function ResultView({ result, onBack }: { result: CheckResult; onBack: () => voi
 
 // ---- CASE 1: CONFIRMED ----
 function ConfirmedView({ result, onBack, mounted }: { result: CheckResult; onBack: () => void; mounted: boolean }) {
-  const qrUrl = "/QR_Higuy.png";
+  const qrUrl = "/QR-Higuy.png";
 
   return (
     <main className="relative min-h-screen bg-navy overflow-hidden px-4 py-12 flex flex-col items-center justify-center">
