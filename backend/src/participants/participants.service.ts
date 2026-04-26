@@ -42,6 +42,9 @@ export class ParticipantsService {
       };
     }
 
+    participant.viewedAt = new Date();
+    await this.repo.save(participant);
+
     return {
       status: participant.status as 'confirmed' | 'reserve',
       firstName: participant.thaiFirstName || participant.firstName,

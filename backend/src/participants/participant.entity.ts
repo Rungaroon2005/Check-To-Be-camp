@@ -42,6 +42,9 @@ export class Participant {
   @Column({ name: 'note', nullable: true, type: 'text' })
   note: string | null;
 
+  @Column({ type: 'timestamp', nullable: true, name: 'viewed_at' })
+  viewedAt: Date;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
